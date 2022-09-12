@@ -1,0 +1,253 @@
+@use "base/variables" as v;
+
+.main {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: v.$fontFamily;
+  color: v.$darkBlue;
+}
+
+.card {
+  width: 90%;
+  max-width: 700px;
+  background-color: #fff;
+  border-radius: 0.625rem;
+  position: relative;
+  overflow: hidden;
+ 
+  &__heading {
+    font-weight: 700;
+    color: v.$primary;
+    font-size: 15px;
+  }
+  &__text {
+    margin-top: 0.9375rem;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+.wrapper__text{
+  padding-block: 25px 0;
+  padding-inline: 40px;
+}
+
+.author{
+  display: flex;
+  &__avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50px;
+    margin-right: 20px;
+  }
+  &__img {
+    border-radius: inherit;
+  }
+  &__name {
+    color: v.$primary;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  &__date {
+    font-size: 0.75rem;
+    color: v.$darkBlue;
+    font-weight: 500;
+  }
+  
+}
+.share{
+  display:none;
+
+  &__text {
+    color: v.$GrayishBlue;
+    letter-spacing: 0.3125rem;
+    text-transform: uppercase;
+    margin-right: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  &__icons {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 14px;
+  }
+}
+
+.btn{
+  width: 1.875rem;
+  color: #6E8098;
+  background-color: v.$bgcard;
+  border-radius: 3.125rem;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 2.5rem;
+  height: 4.375rem;
+  margin-top: 0.625rem;
+  position: relative;
+  
+
+  &::before{
+    content: '';
+    position: absolute;
+    bottom: -100%;
+    right: 0;
+    left: 0;
+    height: 100%;
+    background-color: v.$primary;
+    z-index: 0;
+    transition: bottom .3s linear;
+    
+  }
+
+ 
+}
+.share{
+  animation: fadeIn 3s ease;
+  animation-direction:alternate;
+}
+.checkbox{
+  display: none;
+  &:checked + .footer{
+    
+    &::before{
+      bottom: 0;
+     
+    }
+    & > .btn{
+      background-color: v.$darkBlue;
+      color:#fff;
+    }
+    & > .author{
+      display: none;
+    }
+    & > .share{
+      display: flex;
+      place-items: center;
+      z-index: 1;
+    }
+  }
+
+}
+
+ @keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: scaleY(0);
+      // filter: blur(15px);
+    }
+    30%{
+      opacity: 1;
+      transform: scaleY(1);
+      // filter: brightness(1) blur(2px);
+    }
+} 
+
+
+@media (min-width: 768px) {
+  .card {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    overflow: visible;
+    &__image {
+      &--img{
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+    }
+  
+    &__heading {
+      font-size: 1.125rem;
+    }
+    &__text {
+      font-size: 0.75rem;
+    }
+  }
+
+  .wrapper__text{
+    padding-top: 1.875rem;
+    padding-inline: 2.5rem;
+  }
+
+ 
+  .share {
+    display: flex;
+    opacity: 0;
+    transform: scaleY(0);
+    transition: opacity .3s linear , transform  .3s linear;
+    animation: none;
+    background: hsl(217deg 19% 35%);
+    border-radius: 0.4375rem;
+    left: calc(100% - 175px);
+    padding: 0.8125rem 1.5rem;
+    position: absolute;
+    top: -3.125rem;
+    box-shadow: 1px 5px 14px lighten(#48556a, 30%);
+
+    &::after {
+      background-color: hsl(217deg 19% 35%);
+      bottom: -12%;
+      content: "";
+      height: 1.0625rem;
+      position: absolute;
+      transform: rotate(46deg);
+      width: 1.0625rem;
+      left: calc(100% - (225px / 2) - 10px );
+    }
+
+   
+      
+    &__avatar {
+      margin-right: 1.625rem;
+    }
+    &__text {
+      font-size: 0.75rem;
+      letter-spacing: 0.3125rem;
+      text-transform: uppercase;
+      margin-left: 0.625rem;
+    }
+    &__icons {
+      gap: 0.9375rem;
+      margin-right: 0.625rem;
+    }
+  
+
+  }
+  .footer{
+    position: relative;
+    margin: 0;
+    padding-block: 2.5rem 3.125rem;
+
+    &::before{
+      display: none;
+    }
+
+   
+  }
+
+  .checkbox:checked+.footer {
+      background-color:unset;
+      animation: unset;
+      & > .author{
+        display: flex;
+      }
+      & > .share{
+        display: flex;
+        place-items: center;
+        opacity: 1;
+        transform: scaleY(1);
+      }
+  }
+}
